@@ -1,0 +1,91 @@
+﻿@model Artist
+
+<div class="nav">
+    <a href="/">Home</a>
+    <a href="/Artists">Artists</a>
+    <a href="/Artists/Details/@Model.Id">Details</a>
+</div>
+
+<h1 class="timeline-title">@Model.Name</h1>
+
+<div class="timeline-container">
+
+    @foreach (var album in Model.Albums.OrderBy(a => a.Year))
+    {
+        <section class="era-section @album.Era fade-in">
+
+            <div class="era-content">
+
+               
+                <div class="era-text">
+                    <span class="year">@album.Year</span>
+                    <h2>@album.Title</h2>
+                    <p>@album.Description</p>
+
+                    <a href="/Artists/Details/@Model.Id" class="btn">Explore</a>
+
+                    
+                    <div class="inspirations">
+
+                        @if (album.Inspirations != null && album.Inspirations.Any())
+                        {
+                            <h4>Inspirations</h4>
+
+                            <div class="inspo-grid">
+                                @foreach (var inspo in album.Inspirations)
+                                {
+                                    <div class="inspo-card">
+
+                                        <img src="@inspo.ImageUrl" />
+
+                                        <div class="inspo-info">
+                                            <span class="inspo-type">@inspo.Type</span>
+                                            <p>@inspo.Title</p>
+                                        </div>
+
+                                    </div>
+                                }
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+                
+                <div class="era-image parallax">
+                    <img src="@album.ImageUrl" alt="@album.Title" />
+                </div>
+
+            </div>
+
+        </section>
+    }
+
+</div>
+
+<script>
+    // FADE-IN ANIMATION
+    const elements = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+            }
+        });
+    });
+
+    elements.forEach(el => observer.observe(el));
+
+
+    // PARALLAX EFFECT
+    window.addEventListener("scroll", function () {
+        const images = document.querySelectorAll(".parallax img");
+
+        images.forEach(img => {
+            const rect = img.getBoundingClientRect();
+            const speed = 0.3;
+            img.style.transform = `translateY(${rect.top * speed}px)`;
+        });
+    });
+</script>

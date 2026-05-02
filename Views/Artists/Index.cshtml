@@ -1,0 +1,36 @@
+﻿@model List<Artist>
+
+<h1 class="page-title">Artists</h1>
+
+<input type="text" id="searchBox" placeholder="Search artists..." class="search-box" />
+
+<div class="card-grid">
+    @foreach (var artist in Model)
+    {
+        <a href="/Artists/Details/@artist.Id" class="card @artist.Era">
+
+            <div class="card-image">
+                <img src="@artist.ImageUrl" alt="@artist.Name" />
+            </div>
+
+            <div class="card-content">
+                <h2>@artist.Name</h2>
+                <p>@artist.Bio</p>
+                <span class="mood-tag">@artist.Mood</span>
+            </div>
+
+        </a>
+    }
+</div>
+
+<script>
+    document.getElementById("searchBox").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+            let text = card.innerText.toLowerCase();
+            card.style.display = text.includes(value) ? "block" : "none";
+        });
+    });
+</script>

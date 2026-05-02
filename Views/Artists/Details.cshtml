@@ -1,0 +1,44 @@
+﻿@model Artist
+
+<div class="artist-hero @Model.Era">
+
+    <div class="artist-image">
+        <img src="@Model.ImageUrl" alt="@Model.Name" />
+    </div>
+
+    <div class="artist-info">
+        <h1>@Model.Name</h1>
+        <p class="bio">@Model.Bio</p>
+
+        <div class="meta">
+            <span class="tag">@Model.Mood</span>
+            <span class="tag">@Model.Era era</span>
+        </div>
+    </div>
+
+</div>
+
+<hr />
+
+<div class="section">
+    <h2>Albums</h2>
+
+    @foreach (var album in Model.Albums)
+    {
+        <div class="album-block">
+            <h3>@album.Title <span>(@album.Year)</span></h3>
+
+            <ul>
+                @foreach (var track in album.Tracks)
+                {
+                    <li>
+                        <span class="track-title">@track.Title</span>
+                        <span class="track-mood">@track.Mood</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+<a href="/Artists/Timeline/@Model.Id">View Timeline</a>

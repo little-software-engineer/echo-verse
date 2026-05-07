@@ -1,0 +1,67 @@
+﻿<div class="hero-slider">
+
+    <div class="slide active"
+         style="background-image: url('https://assets.vogue.com/photos/58920240f1b0e7f31c92cf03/16:9/w_1280,c_limit/the-weeknd-profile.jpg?mbid=social_retweet');">
+    </div>
+
+    <div class="slide"
+         style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK31i33i4N8RlFbsM5FjbozQgQPMdtzV5e2w&s');">
+    </div>
+
+    <div class="slide"
+         style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d');">
+    </div>
+
+    <div class="hero-overlay">
+
+        <h1>EchoVerse</h1>
+
+        <p>
+            Explore music through cinematic timelines, visual eras,
+            film inspirations, and gaming aesthetics.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="/Artists" class="hero-btn">Explore Artists</a>
+        </div>
+
+    </div>
+
+</div>
+
+<section class="home-info">
+
+    <div class="info-card">
+        <h2>Interactive Timelines</h2>
+        <p>
+            Scroll through artist eras with immersive transitions,
+            visuals, and storytelling.
+        </p>
+    </div>
+
+    <div class="info-card">
+        <h2>Inspirations</h2>
+        <p>
+            Discover connections between music, films,
+            games, and visual culture.
+        </p>
+    </div>
+
+  
+
+</section>
+
+<script>
+    const slides = document.querySelectorAll(".slide");
+
+    let current = 0;
+
+    setInterval(() => {
+        slides[current].classList.remove("active");
+
+        current = (current + 1) % slides.length;
+
+        slides[current].classList.add("active");
+
+    }, 4000);
+</script>

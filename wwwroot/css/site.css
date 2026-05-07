@@ -1,24 +1,24 @@
 ﻿html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 
@@ -50,13 +50,13 @@ body {
     overflow: hidden;
 }
 
-    
+
     .card:hover {
         transform: translateY(-8px) scale(1.02);
         box-shadow: 0 10px 25px rgba(0,0,0,0.6);
     }
 
-    
+
     .card::before {
         content: "";
         position: absolute;
@@ -383,7 +383,7 @@ body {
     .era-image img {
         width: 100%;
         height: 100%;
-        object-fit: cover; 
+        object-fit: cover;
         transform: translateY(0);
         will-change: transform;
     }
@@ -436,7 +436,7 @@ body {
 }
 
 .inspo-card {
-    width: 160px; 
+    width: 160px;
     background: rgba(255,255,255,0.07);
     border-radius: 12px;
     overflow: hidden;
@@ -449,7 +449,7 @@ body {
 
     .inspo-card img {
         width: 100%;
-        height: 110px; 
+        height: 110px;
         object-fit: cover;
     }
 
@@ -470,3 +470,150 @@ body {
 .inspo-card {
     backdrop-filter: blur(6px);
 }
+
+
+.main-nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+    .nav-links a {
+        color: rgba(255,255,255,0.75);
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+.privacy-page {
+    max-width: 700px;
+    margin: 80px auto;
+    padding: 20px;
+    line-height: 1.7;
+}
+
+    .privacy-page h1 {
+        margin-bottom: 20px;
+    }
+
+.hero-slider {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+    .slide.active {
+        opacity: 1;
+    }
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+    .hero-overlay h1 {
+        font-size: 5rem;
+        margin-bottom: 20px;
+        letter-spacing: 3px;
+    }
+
+    .hero-overlay p {
+        max-width: 700px;
+        font-size: 1.2rem;
+        line-height: 1.7;
+    }
+
+
+.hero-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 14px 28px;
+    background: white;
+    color: black;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+    .hero-btn:hover {
+        transform: scale(1.05);
+    }
+
+
+.home-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+    padding: 60px 40px;
+    background: #0b0b0f;
+}
+
+.info-card {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+    .info-card:hover {
+        transform: translateY(-5px);
+    }
+
+.timeline-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 24px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .timeline-btn:hover {
+        transform: scale(1.05);
+    }

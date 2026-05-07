@@ -1,10 +1,6 @@
 ﻿@model Artist
 
-<div class="nav">
-    <a href="/">Home</a>
-    <a href="/Artists">Artists</a>
-    <a href="/Artists/Details/@Model.Id">Details</a>
-</div>
+
 
 <h1 class="timeline-title">@Model.Name</h1>
 
@@ -64,7 +60,7 @@
 </div>
 
 <script>
-    // FADE-IN ANIMATION
+   
     const elements = document.querySelectorAll(".fade-in");
 
     const observer = new IntersectionObserver(entries => {
@@ -78,7 +74,7 @@
     elements.forEach(el => observer.observe(el));
 
 
-    // PARALLAX EFFECT
+
     window.addEventListener("scroll", function () {
         const images = document.querySelectorAll(".parallax img");
 

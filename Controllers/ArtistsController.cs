@@ -11,14 +11,57 @@ public class ArtistsController : Controller
         _context = context;
     }
 
-    
-    public IActionResult Index()
+
+    public IActionResult Index(string searchTerm, string eraFilter)
     {
-        var artists = _context.Artists.ToList();
-        return View(artists);
+        var artists = _context.Artists
+            .Include(a => a.Albums)
+            .AsQueryable();
+
+       
+        if (!string.IsNullOrEmpty(searchTerm))
+        {
+            artists = artists.Where(a =>
+                a.Name.Contains(searchTerm) ||
+                a.Albums.Any(al => al.Title.Contains(searchTerm))
+            );
+        }
+
+        
+        if (!string.IsNullOrEmpty(eraFilter))
+        {
+            artists = artists.Where(a =>
+                a.Albums.Any(al =>
+                    al.Era.ToLower() == eraFilter.ToLower()
+                )
+            );
+        }
+
+        return View(artists.ToList());
     }
 
-   
+    [HttpGet]
+    public JsonResult SearchSuggestions(string term)
+    {
+        var results = _context.Artists
+            .Include(a => a.Albums)
+            .Where(a =>
+                a.Name.Contains(term) ||
+                a.Albums.Any(al => al.Title.Contains(term))
+            )
+           .Select(a => new
+           {
+               id = a.Id,
+               artist = a.Name,
+               albums = a.Albums.Select(al => al.Title)
+           })
+            .Take(5)
+            .ToList();
+
+        return Json(results);
+    }
+
+
     public IActionResult Details(int id)
     {
         var artist = _context.Artists

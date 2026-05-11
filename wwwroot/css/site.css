@@ -617,3 +617,146 @@ body {
     .timeline-btn:hover {
         transform: scale(1.05);
     }
+
+
+.search-section {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+  
+    .search-section form {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    
+    .search-section input,
+    .search-section select {
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: #1b1b22;
+        color: white;
+        min-width: 220px;
+    }
+
+  
+    .search-section button {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 10px;
+        background: white;
+        color: black;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .search-section button:hover {
+            transform: scale(1.05);
+        }
+
+
+.autocomplete-wrapper {
+    position: relative;
+}
+
+
+#suggestions {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 999;
+}
+
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+    .suggestion-item:hover {
+        background: rgba(255,255,255,0.08);
+    }
+
+
+.search-section {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+
+    .search-section form {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+.autocomplete-wrapper {
+    position: relative;
+}
+
+
+.search-section input,
+.search-section select {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #1b1b22;
+    color: white;
+    min-width: 240px;
+}
+
+
+.search-section button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: black;
+    cursor: pointer;
+}
+
+
+#suggestions {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    width: 100%;
+    background: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 999;
+}
+
+
+.suggestion-link {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+
+.suggestion-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s;
+}
+
+    .suggestion-item:hover {
+        background: rgba(255,255,255,0.08);
+    }
+
+.spotify-player {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+}

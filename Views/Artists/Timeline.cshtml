@@ -17,8 +17,24 @@
                     <span class="year">@album.Year</span>
                     <h2>@album.Title</h2>
                     <p>@album.Description</p>
+                    @if (!string.IsNullOrEmpty(album.SpotifyEmbedUrl))
+                    {
+                        <div class="spotify-player">
 
-                    <a href="/Artists/Details/@Model.Id" class="btn">Explore</a>
+                            <iframe style="border-radius:12px"
+                                    src="@album.SpotifyEmbedUrl"
+                                    width="100%"
+                                    height="152"
+                                    frameborder="0"
+                                    allowfullscreen=""
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                    loading="lazy">
+                            </iframe>
+
+                        </div>
+                    }
+
+                    <a href="/Artists/Details/@Model.Id" class="btn">Artist page</a>
 
                     
                     <div class="inspirations">

@@ -1,10 +1,42 @@
 ﻿@model List<Artist>
 
+<div class="search-section">
+
+    <form method="get">
+
+       
+        <div class="autocomplete-wrapper">
+
+            <input type="text"
+                   id="searchInput"
+                   name="searchTerm"
+                   placeholder="Search artist or album..."
+                   autocomplete="off" />
+
+            <div id="suggestions"></div>
+
+        </div>
+
+        
+        <select name="eraFilter">
+
+            <option value="">All Eras</option>
+            <option value="dark">Dark</option>
+            <option value="neon">Neon</option>
+            <option value="classic">Classic</option>
+
+        </select>
+
+        <button type="submit">Search</button>
+
+    </form>
+
+</div>
+
 <h1 class="page-title">Artists</h1>
 
-<input type="text" id="searchBox" placeholder="Search artists..." class="search-box" />
-
 <div class="card-grid">
+
     @foreach (var artist in Model)
     {
         <a href="/Artists/Details/@artist.Id" class="card @artist.Era">
@@ -21,16 +53,54 @@
 
         </a>
     }
+
 </div>
 
 <script>
-    document.getElementById("searchBox").addEventListener("keyup", function () {
-        let value = this.value.toLowerCase();
-        let cards = document.querySelectorAll(".card");
 
-        cards.forEach(card => {
-            let text = card.innerText.toLowerCase();
-            card.style.display = text.includes(value) ? "block" : "none";
+    const input = document.getElementById("searchInput");
+    const suggestions = document.getElementById("suggestions");
+
+    input.addEventListener("keyup", async () => {
+
+        const term = input.value;
+
+      
+        if (term.length < 2) {
+            suggestions.innerHTML = "";
+            return;
+        }
+
+        
+        const response = await fetch(`/Artists/SearchSuggestions?term=${term}`);
+
+        const data = await response.json();
+
+        suggestions.innerHTML = "";
+
+        data.forEach(item => {
+
+            let html = `
+                <a href="/Artists/Details/${item.id}" class="suggestion-link">
+
+                    <div class="suggestion-item">
+
+                        <strong>${item.artist}</strong>
+            `;
+
+            item.albums.forEach(album => {
+                html += `<div>${album}</div>`;
+            });
+
+            html += `
+                    </div>
+
+                </a>
+            `;
+
+            suggestions.innerHTML += html;
         });
+
     });
+
 </script>

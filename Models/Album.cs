@@ -12,6 +12,8 @@
 
         public string ImageUrl { get; set; }
         public string Description { get; set; }
+
+        public string SpotifyEmbedUrl { get; set; }
         public List<Inspiration> Inspirations { get; set; }
 
         public List<Track> Tracks { get; set; }

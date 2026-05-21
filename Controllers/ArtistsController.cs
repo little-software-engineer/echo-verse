@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheWeekndPort.Data;
 
@@ -11,34 +11,35 @@ public class ArtistsController : Controller
         _context = context;
     }
 
-
-    public IActionResult Index(string searchTerm, string eraFilter)
+ 
+    public IActionResult Index(string? search, string? sortOrder)
     {
         var artists = _context.Artists
             .Include(a => a.Albums)
             .AsQueryable();
 
-       
-        if (!string.IsNullOrEmpty(searchTerm))
+     
+        if (!string.IsNullOrWhiteSpace(search))
         {
+            var term = search.Trim();
+
             artists = artists.Where(a =>
-                a.Name.Contains(searchTerm) ||
-                a.Albums.Any(al => al.Title.Contains(searchTerm))
+                a.Name.Contains(term) ||
+                a.Albums.Any(al => al.Title.Contains(term))
             );
         }
 
-        
-        if (!string.IsNullOrEmpty(eraFilter))
+     
+        artists = sortOrder?.ToLower() switch
         {
-            artists = artists.Where(a =>
-                a.Albums.Any(al =>
-                    al.Era.ToLower() == eraFilter.ToLower()
-                )
-            );
-        }
+            "oldest" => artists.OrderBy(a => a.CreatedAt),
+
+            _ => artists.OrderByDescending(a => a.CreatedAt)
+        };
 
         return View(artists.ToList());
     }
+
 
     [HttpGet]
     public JsonResult SearchSuggestions(string term)
@@ -49,19 +50,19 @@ public class ArtistsController : Controller
                 a.Name.Contains(term) ||
                 a.Albums.Any(al => al.Title.Contains(term))
             )
-           .Select(a => new
-           {
-               id = a.Id,
-               artist = a.Name,
-               albums = a.Albums.Select(al => al.Title)
-           })
+            .Select(a => new
+            {
+                id = a.Id,
+                artist = a.Name,
+                albums = a.Albums.Select(al => al.Title)
+            })
             .Take(5)
             .ToList();
 
         return Json(results);
     }
 
-
+   
     public IActionResult Details(int id)
     {
         var artist = _context.Artists
@@ -72,7 +73,7 @@ public class ArtistsController : Controller
         return View(artist);
     }
 
-    
+   
     public IActionResult Timeline(int id)
     {
         var artist = _context.Artists

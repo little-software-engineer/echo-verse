@@ -1,0 +1,104 @@
+.inspirations {
+    margin-top: 1.5rem;
+}
+
+.inspirations h4 {
+    margin: 0 0 0.35rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+.inspirations-lead {
+    margin: 0 0 0.75rem;
+    max-width: 28rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-faint);
+}
+
+.inspo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.inspo-card.inspo-card--link {
+    display: block;
+    width: 140px;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.inspo-card.inspo-card--link:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.inspo-card.inspo-card--link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring), 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.inspo-card img {
+    width: 100%;
+    height: 96px;
+    object-fit: cover;
+    display: block;
+}
+
+.inspo-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 96px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: linear-gradient(145deg, var(--surface-hover), var(--bg-elevated));
+}
+
+.inspo-info {
+    padding: 0.5rem 0.6rem 0.65rem;
+}
+
+.inspo-type {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+.inspo-info p {
+    margin: 0.2rem 0 0;
+    font-size: 0.75rem;
+    line-height: 1.35;
+}
+
+.inspo-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+}
+
+.inspo-hint {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+}

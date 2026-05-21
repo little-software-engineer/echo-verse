@@ -1,67 +1,50 @@
-﻿<div class="hero-slider">
+@model HomeIndexViewModel
 
-    <div class="slide active"
-         style="background-image: url('https://assets.vogue.com/photos/58920240f1b0e7f31c92cf03/16:9/w_1280,c_limit/the-weeknd-profile.jpg?mbid=social_retweet');">
-    </div>
+<div class="hero-slider full-bleed">
 
-    <div class="slide"
-         style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK31i33i4N8RlFbsM5FjbozQgQPMdtzV5e2w&s');">
-    </div>
-
-    <div class="slide"
-         style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d');">
-    </div>
+    @for (var i = 0; i < Model.HeroSlides.Count; i++)
+    {
+        <div class="slide @(i == 0 ? "active" : null)" style="background-image: url('@Model.HeroSlides[i]');"></div>
+    }
 
     <div class="hero-overlay">
-
+        <p class="hero-kicker">Music discovery</p>
         <h1>EchoVerse</h1>
-
         <p>
-            Explore music through cinematic timelines, visual eras,
-            film inspirations, and gaming aesthetics.
+            Cinematic timelines, visual eras, and the space where records meet film and games.
         </p>
-
         <div class="hero-buttons">
-            <a href="/Artists" class="hero-btn">Explore Artists</a>
+            <a asp-controller="Artists" asp-action="Index" class="btn btn-primary btn-lg">Browse artists</a>
+            <a href="#discover" class="btn btn-outline btn-lg">What we offer</a>
         </div>
-
     </div>
 
 </div>
 
-<section class="home-info">
-
+<section id="discover" class="home-info content-width" aria-labelledby="discover-heading">
+    <h2 id="discover-heading" class="visually-hidden">Features</h2>
     <div class="info-card">
-        <h2>Interactive Timelines</h2>
+        <h2>Timelines</h2>
         <p>
-            Scroll through artist eras with immersive transitions,
-            visuals, and storytelling.
+            Scroll eras with full-screen visuals and short stories behind each chapter.
         </p>
     </div>
-
     <div class="info-card">
         <h2>Inspirations</h2>
         <p>
-            Discover connections between music, films,
-            games, and visual culture.
+            See how albums nod to cinema, games, and visual culture in one place.
         </p>
     </div>
-
-  
-
 </section>
 
 <script>
     const slides = document.querySelectorAll(".slide");
-
-    let current = 0;
-
-    setInterval(() => {
-        slides[current].classList.remove("active");
-
-        current = (current + 1) % slides.length;
-
-        slides[current].classList.add("active");
-
-    }, 4000);
+    if (slides.length > 0) {
+        let current = 0;
+        setInterval(() => {
+            slides[current].classList.remove("active");
+            current = (current + 1) % slides.length;
+            slides[current].classList.add("active");
+        }, 4500);
+    }
 </script>

@@ -1,40 +1,38 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TheWeekndPort</title>
+    <title>@ViewData["Title"] - EchoVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site-variables.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site-inspirations.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TheWeekndPort.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-
-        <nav class="main-nav">
-
+        <nav class="main-nav" aria-label="Primary">
             <div class="logo">
-                <a href="/">EchoVerse</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index">EchoVerse</a>
             </div>
-
             <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/Artists">Artists</a>
-                <a href="/Home/Privacy">Privacy</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-area="" asp-controller="Artists" asp-action="Index">Artists</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
-
         </nav>
-
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - TheWeekndPort - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main role="main" class="site-main">
+        @RenderBody()
+    </main>
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <span>&copy; 2026 EchoVerse - created by little-software-engineer</span>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

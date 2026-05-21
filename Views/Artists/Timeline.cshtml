@@ -1,4 +1,4 @@
-﻿@model Artist
+@model Artist
 
 
 
@@ -34,7 +34,9 @@
                         </div>
                     }
 
-                    <a href="/Artists/Details/@Model.Id" class="btn">Artist page</a>
+                    <div class="timeline-cta-row">
+                        <a asp-controller="Artists" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Artist profile</a>
+                    </div>
 
                     
                     <div class="inspirations">
@@ -42,20 +44,39 @@
                         @if (album.Inspirations != null && album.Inspirations.Any())
                         {
                             <h4>Inspirations</h4>
+                            <p class="inspirations-lead">Tap a tile to open a Google search</p>
 
                             <div class="inspo-grid">
                                 @foreach (var inspo in album.Inspirations)
                                 {
-                                    <div class="inspo-card">
+                                   var searchUrl = WebSearchLinks.GoogleSearch(inspo.Title + " " + inspo.Type);
+                                    var label = !string.IsNullOrWhiteSpace(inspo.Type) ? inspo.Type : inspo.Title;
+                                    var thumbLetter = label.Trim().Length > 0 ? char.ToUpperInvariant(label.Trim()[0]) : '?';
 
-                                        <img src="@inspo.ImageUrl" />
+                                    <a class="inspo-card inspo-card--link"
+                                       href="@searchUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       title="Google: @inspo.Title"
+                                       aria-label="Search Google for @inspo.Title">
+
+                                        @if (!string.IsNullOrWhiteSpace(inspo.ImageUrl))
+                                        {
+                                            <img src="@inspo.ImageUrl" alt="" loading="lazy" decoding="async" />
+                                        }
+                                        else
+                                        {
+                                            <div class="inspo-thumb" aria-hidden="true">@thumbLetter</div>
+                                        }
 
                                         <div class="inspo-info">
                                             <span class="inspo-type">@inspo.Type</span>
                                             <p>@inspo.Title</p>
+                                            <div class="inspo-meta">
+                                                <span class="inspo-hint">Search</span>
+                                            </div>
                                         </div>
-
-                                    </div>
+                                    </a>
                                 }
                             </div>
                         }
@@ -64,8 +85,8 @@
                 </div>
 
                 
-                <div class="era-image parallax">
-                    <img src="@album.ImageUrl" alt="@album.Title" />
+                <div class="era-image era-visual" data-era-visual>
+                    <img src="@album.ImageUrl" alt="@album.Title" loading="lazy" decoding="async" />
                 </div>
 
             </div>
@@ -91,13 +112,53 @@
 
 
 
-    window.addEventListener("scroll", function () {
-        const images = document.querySelectorAll(".parallax img");
+    (function () {
+        const frames = document.querySelectorAll("[data-era-visual]");
+        if (!frames.length) return;
 
-        images.forEach(img => {
-            const rect = img.getBoundingClientRect();
-            const speed = 0.3;
-            img.style.transform = `translateY(${rect.top * speed}px)`;
-        });
-    });
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (reduceMotion.matches) return;
+
+        const maxShiftPx = 26;
+        const scale = 1.07;
+        const sensitivity = 0.065;
+
+        function clamp(n, min, max) {
+            return Math.min(max, Math.max(min, n));
+        }
+
+        let ticking = false;
+        function update() {
+            ticking = false;
+            const vh = window.innerHeight || 1;
+            const mid = vh * 0.5;
+
+            frames.forEach((frame) => {
+                const img = frame.querySelector("img");
+                if (!img) return;
+
+                const r = frame.getBoundingClientRect();
+                if (r.bottom < 0 || r.top > vh) {
+                    img.style.transform = `translate3d(0, 0, 0) scale(${scale})`;
+                    return;
+                }
+
+                const center = r.top + r.height * 0.5;
+                const delta = center - mid;
+                const y = clamp(-delta * sensitivity, -maxShiftPx, maxShiftPx);
+                img.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(${scale})`;
+            });
+        }
+
+        function onScroll() {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(update);
+            }
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
+    })();
 </script>

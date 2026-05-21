@@ -1,58 +1,112 @@
-﻿@model List<Artist>
+@model List<Artist>
 
-<div class="search-section">
+@{
+    var q = Context.Request.Query["search"].ToString();
+    var sortOrder = Context.Request.Query["sortOrder"].ToString();
+}
 
-    <form method="get">
+<div class="content-width page-header">
 
-       
-        <div class="autocomplete-wrapper">
+    <div class="search-section">
 
-            <input type="text"
-                   id="searchInput"
-                   name="searchTerm"
-                   placeholder="Search artist or album..."
-                   autocomplete="off" />
+        <form method="get"
+              class="search-form"
+              action="@Url.Action("Index", "Artists")">
 
-            <div id="suggestions"></div>
+            
+            <div class="autocomplete-wrapper">
 
-        </div>
+                <input type="text"
+                       id="searchInput"
+                       name="search"
+                       value="@q"
+                       placeholder="Artist or album…"
+                       autocomplete="off"
+                       aria-label="Search by artist or album title" />
 
-        
-        <select name="eraFilter">
+                <div id="suggestions"
+                     role="listbox"
+                     aria-live="polite">
+                </div>
 
-            <option value="">All Eras</option>
-            <option value="dark">Dark</option>
-            <option value="neon">Neon</option>
-            <option value="classic">Classic</option>
-
-        </select>
-
-        <button type="submit">Search</button>
-
-    </form>
-
-</div>
-
-<h1 class="page-title">Artists</h1>
-
-<div class="card-grid">
-
-    @foreach (var artist in Model)
-    {
-        <a href="/Artists/Details/@artist.Id" class="card @artist.Era">
-
-            <div class="card-image">
-                <img src="@artist.ImageUrl" alt="@artist.Name" />
             </div>
 
-            <div class="card-content">
-                <h2>@artist.Name</h2>
-                <p>@artist.Bio</p>
-                <span class="mood-tag">@artist.Mood</span>
-            </div>
+         
+            <select name="sortOrder" aria-label="Sort artists">
 
-        </a>
-    }
+                @{
+                    var sortOptions = new (string Value, string Label)[]
+                    {
+                                ("newest", "Newest Added"),
+                                ("oldest", "Oldest Added")
+                    };
+
+                    foreach (var (optValue, optLabel) in sortOptions)
+                    {
+                        var isSelected =
+                        string.Equals(sortOrder,
+                        optValue,
+                        StringComparison.OrdinalIgnoreCase);
+
+                        if (isSelected)
+                        {
+                            <option value="@optValue" selected>
+                                @optLabel
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@optValue">
+                                @optLabel
+                            </option>
+                        }
+                    }
+                }
+
+            </select>
+
+            <button type="submit" class="btn btn-primary">
+                Apply Filters
+            </button>
+
+        </form>
+
+    </div>
+
+    <h1 class="page-title">Artists</h1>
+
+    <div class="card-grid">
+
+        @foreach (var artist in Model)
+        {
+            <a asp-controller="Artists"
+               asp-action="Details"
+               asp-route-id="@artist.Id"
+               class="card @artist.Era">
+
+                <div class="card-image">
+
+                    <img src="@artist.ImageUrl"
+                         alt="@artist.Name" />
+
+                </div>
+
+                <div class="card-content">
+
+                    <h2>@artist.Name</h2>
+
+                    <p>@artist.Bio</p>
+
+                    <span class="mood-tag">
+                        @artist.Mood
+                    </span>
+
+                </div>
+
+            </a>
+        }
+
+    </div>
 
 </div>
 
@@ -65,23 +119,27 @@
 
         const term = input.value;
 
-      
+        
         if (term.length < 2) {
             suggestions.innerHTML = "";
             return;
         }
 
-        
-        const response = await fetch(`/Artists/SearchSuggestions?term=${term}`);
+       
+        const response = await fetch(
+            `/Artists/SearchSuggestions?term=${encodeURIComponent(term)}`
+        );
 
         const data = await response.json();
 
         suggestions.innerHTML = "";
 
+        
         data.forEach(item => {
 
             let html = `
-                <a href="/Artists/Details/${item.id}" class="suggestion-link">
+                <a href="/Artists/Details/${item.id}"
+                   class="suggestion-link">
 
                     <div class="suggestion-item">
 
@@ -100,6 +158,15 @@
 
             suggestions.innerHTML += html;
         });
+
+    });
+
+
+    document.addEventListener("click", (e) => {
+
+        if (!e.target.closest(".autocomplete-wrapper")) {
+            suggestions.innerHTML = "";
+        }
 
     });
 

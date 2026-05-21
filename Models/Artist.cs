@@ -8,8 +8,12 @@
 
         public string ImageUrl { get; set; }
 
-        public string Era { get; set; }   // e.g. dark, neon, classic
+        public string Era { get; set; }   
         public string Mood { get; set; }  // e.g. emotional, energetic, dark
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+
 
         public List<Album> Albums { get; set; }
     }

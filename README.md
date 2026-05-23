@@ -38,11 +38,6 @@ Each inspiration helps connect the artist’s work to broader media influences.
 - Spotify embeds for selected albums/tracks
 - Immersive listening experience
 
-## Cinematic UI/UX
-- Dark and neon visual themes
-- Smooth transitions
-- Parallax-inspired scrolling
-- Glow effects and animated reveals
 
 ---
 
@@ -79,7 +74,6 @@ The goal is to create an emotionally immersive interface where music eras feel l
 
 Inspired by:
 - Synthwave aesthetics
-- Cyberpunk visuals
 - Modern music storytelling
 - Interactive media archives
 

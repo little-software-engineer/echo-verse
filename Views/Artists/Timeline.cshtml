@@ -1,6 +1,11 @@
 @model Artist
 
-
+<a asp-controller="Artists"
+   asp-action="Details"
+   asp-route-id="@Model.Id"
+   class="back-arrow">
+    &larr;
+</a>
 
 <h1 class="timeline-title">@Model.Name</h1>
 
